@@ -70,7 +70,9 @@ extern "C" {
     // TODO If C++ is being used, regular C code needs function names to have C 
     // linkage so the functions can be used by the c code.
     
-    
+    void set_pin_io(char val);
+    void set_pin(char val);
+    char get_pin();
     int therm_init();
     void skip_ROM();
     void write_bit(char wBit);

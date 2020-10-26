@@ -1,4 +1,4 @@
-# 1 "thermometer.c"
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\sources\\c90\\pic\\__eeprom.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,9 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "thermometer.c" 2
-# 1 "./thermometer.h" 1
-# 34 "./thermometer.h"
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\sources\\c90\\pic\\__eeprom.c" 2
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -1718,125 +1716,176 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 34 "./thermometer.h" 2
-# 73 "./thermometer.h"
-    void set_pin_io(char val);
-    void set_pin(char val);
-    char get_pin();
-    int therm_init();
-    void skip_ROM();
-    void write_bit(char wBit);
-    void write_byte(char byte);
-    void therm_delay(char x, char y);
-# 1 "thermometer.c" 2
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\sources\\c90\\pic\\__eeprom.c" 2
 
 
-void set_pin_io(char val) {
-    if (val) {
-        TRISA = TRISA | 0x01;
-    }
-    else {
-        TRISA = ~(~TRISA | 0x01);
-    }
+
+
+void
+__eecpymem(volatile unsigned char *to, __eeprom unsigned char * from, unsigned char size)
+{
+ volatile unsigned char *cp = to;
+
+ while (EECON1bits.WR) continue;
+ EEADR = (unsigned char)from;
+ while(size--) {
+  while (EECON1bits.WR) continue;
+
+  EECON1 &= 0x7F;
+
+  EECON1bits.RD = 1;
+  *cp++ = EEDATA;
+  ++EEADR;
+ }
+# 36 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\sources\\c90\\pic\\__eeprom.c"
 }
 
-void set_pin(char val) {
-    if (val) {
-        PORTA = PORTA | 0x01;
-    }
-    else {
-        PORTA = ~(~PORTA | 0x01);
-    }
+void
+__memcpyee(__eeprom unsigned char * to, const unsigned char *from, unsigned char size)
+{
+ const unsigned char *ptr =from;
+
+ while (EECON1bits.WR) continue;
+ EEADR = (unsigned char)to - 1U;
+
+ EECON1 &= 0x7F;
+
+ while(size--) {
+  while (EECON1bits.WR) {
+   continue;
+  }
+  EEDATA = *ptr++;
+  ++EEADR;
+  STATUSbits.CARRY = 0;
+  if (INTCONbits.GIE) {
+   STATUSbits.CARRY = 1;
+  }
+  INTCONbits.GIE = 0;
+  EECON1bits.WREN = 1;
+  EECON2 = 0x55;
+  EECON2 = 0xAA;
+  EECON1bits.WR = 1;
+  EECON1bits.WREN = 0;
+  if (STATUSbits.CARRY) {
+   INTCONbits.GIE = 1;
+  }
+ }
+# 101 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\sources\\c90\\pic\\__eeprom.c"
 }
 
-char get_pin() {
-    char result = PORTA | 0x01;
-
-    if (result && PORTA) {
-        return 1;
-    }
-    else {
-        return 0;
-    }
-
+unsigned char
+__eetoc(__eeprom void *addr)
+{
+ unsigned char data;
+ __eecpymem((unsigned char *) &data,addr,1);
+ return data;
 }
 
-int therm_init() {
-
-    ADCON1 = 0x07;
-    set_pin_io(0);
-
-    set_pin(0);
-    therm_delay(2, 70);
-    set_pin_io(1);
-    therm_delay(2, 8);
-
-    char alive;
-    alive = get_pin();
-
-
-    therm_delay(2, 60);
-
-    if (alive == 0) {
-        return 1;
-    }
-    else {
-        return 0;
-    }
+unsigned int
+__eetoi(__eeprom void *addr)
+{
+ unsigned int data;
+ __eecpymem((unsigned char *) &data,addr,2);
+ return data;
 }
 
-void skip_ROM() {
+#pragma warning push
+#pragma warning disable 2040
+__uint24
+__eetom(__eeprom void *addr)
+{
+ __uint24 data;
+ __eecpymem((unsigned char *) &data,addr,3);
+ return data;
+}
+#pragma warning pop
 
-    write_byte(0xCC);
-
+unsigned long
+__eetol(__eeprom void *addr)
+{
+ unsigned long data;
+ __eecpymem((unsigned char *) &data,addr,4);
+ return data;
 }
 
-void write_bit(char wBit) {
+#pragma warning push
+#pragma warning disable 1516
+unsigned long long
+__eetoo(__eeprom void *addr)
+{
+ unsigned long long data;
+ __eecpymem((unsigned char *) &data,addr,8);
+ return data;
+}
+#pragma warning pop
 
-    if (wBit) {
-        set_pin_io(0);
-        set_pin(0);
-
-        therm_delay(2, 8);
-        set_pin_io(1);
-    }
-    else {
-        set_pin_io(0);
-        set_pin(0);
-
-        __nop();
-        __nop();
-        __nop();
-        set_pin_io(1);
-
-
-        therm_delay(2, 8);
-    }
-
+unsigned char
+__ctoee(__eeprom void *addr, unsigned char data)
+{
+ __memcpyee(addr,(unsigned char *) &data,1);
+ return data;
 }
 
-void write_byte(char byte) {
-
-    char mask;
-
-    for (mask = 0x80; mask != 0; mask >>= 1) {
-
-        if (byte & mask) {
-            write_bit(1);
-        }
-        else {
-            write_bit(0);
-        }
-
-    }
-
+unsigned int
+__itoee(__eeprom void *addr, unsigned int data)
+{
+ __memcpyee(addr,(unsigned char *) &data,2);
+ return data;
 }
 
-void therm_delay(char x, char y) {
+#pragma warning push
+#pragma warning disable 2040
+__uint24
+__mtoee(__eeprom void *addr, __uint24 data)
+{
+ __memcpyee(addr,(unsigned char *) &data,3);
+ return data;
+}
+#pragma warning pop
 
-    char z;
-    do {
-        z = y;
-        do {;} while (--z);
-    } while (--x);
+unsigned long
+__ltoee(__eeprom void *addr, unsigned long data)
+{
+ __memcpyee(addr,(unsigned char *) &data,4);
+ return data;
+}
+
+#pragma warning push
+#pragma warning disable 1516
+unsigned long long
+__otoee(__eeprom void *addr, unsigned long long data)
+{
+ __memcpyee(addr,(unsigned char *) &data,8);
+ return data;
+}
+#pragma warning pop
+
+float
+__eetoft(__eeprom void *addr)
+{
+ float data;
+ __eecpymem((unsigned char *) &data,addr,3);
+ return data;
+}
+
+double
+__eetofl(__eeprom void *addr)
+{
+ double data;
+ __eecpymem((unsigned char *) &data,addr,4);
+ return data;
+}
+
+float
+__fttoee(__eeprom void *addr, float data)
+{
+ __memcpyee(addr,(unsigned char *) &data,3);
+ return data;
+}
+
+double
+__fltoee(__eeprom void *addr, double data)
+{
+ __memcpyee(addr,(unsigned char *) &data,4);
+ return data;
 }

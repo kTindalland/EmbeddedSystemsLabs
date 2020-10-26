@@ -1,4 +1,4 @@
-# 1 "thermometer.c"
+# 1 "//adir.hull.ac.uk/home/578/578004/Downloads/SampleLCD.X/lcd.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,9 +6,14 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "thermometer.c" 2
-# 1 "./thermometer.h" 1
-# 34 "./thermometer.h"
+# 1 "//adir.hull.ac.uk/home/578/578004/Downloads/SampleLCD.X/lcd.c" 2
+# 1 "//adir.hull.ac.uk/home/578/578004/Downloads/SampleLCD.X/lcd.h" 1
+
+
+
+
+
+
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -1718,125 +1723,208 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 34 "./thermometer.h" 2
-# 73 "./thermometer.h"
-    void set_pin_io(char val);
-    void set_pin(char val);
-    char get_pin();
-    int therm_init();
-    void skip_ROM();
-    void write_bit(char wBit);
-    void write_byte(char byte);
-    void therm_delay(char x, char y);
-# 1 "thermometer.c" 2
+# 7 "//adir.hull.ac.uk/home/578/578004/Downloads/SampleLCD.X/lcd.h" 2
+# 20 "//adir.hull.ac.uk/home/578/578004/Downloads/SampleLCD.X/lcd.h"
+    void lcd_init();
+    void lcd_soft_init();
+    void writecmd(char x);
+    void writechar(char x);
+    void writestr(char *x);
+    void setcursor(int x, int y);
+# 1 "//adir.hull.ac.uk/home/578/578004/Downloads/SampleLCD.X/lcd.c" 2
+
+# 1 "//adir.hull.ac.uk/home/578/578004/Downloads/SampleLCD.X/delay.h" 1
 
 
-void set_pin_io(char val) {
-    if (val) {
-        TRISA = TRISA | 0x01;
-    }
-    else {
-        TRISA = ~(~TRISA | 0x01);
+
+void delay();
+void delayBy(int amount);
+# 2 "//adir.hull.ac.uk/home/578/578004/Downloads/SampleLCD.X/lcd.c" 2
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\include\\c90\\stdio.h" 1 3
+
+
+
+# 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\__size_t.h" 1 3
+
+
+
+typedef unsigned size_t;
+# 4 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\include\\c90\\stdio.h" 2 3
+
+# 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\__null.h" 1 3
+# 5 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\include\\c90\\stdio.h" 2 3
+
+
+
+
+
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\include\\c90\\stdarg.h" 1 3
+
+
+
+
+
+
+typedef void * va_list[1];
+
+#pragma intrinsic(__va_start)
+extern void * __va_start(void);
+
+#pragma intrinsic(__va_arg)
+extern void * __va_arg(void *, ...);
+# 11 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\include\\c90\\stdio.h" 2 3
+# 43 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\include\\c90\\stdio.h" 3
+struct __prbuf
+{
+ char * ptr;
+ void (* func)(char);
+};
+# 85 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\include\\c90\\stdio.h" 3
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\include\\c90\\conio.h" 1 3
+
+
+
+
+
+
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\include\\c90\\errno.h" 1 3
+# 29 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\include\\c90\\errno.h" 3
+extern int errno;
+# 8 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\include\\c90\\conio.h" 2 3
+
+
+
+
+extern void init_uart(void);
+
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
+
+extern __bit kbhit(void);
+
+
+
+extern char * cgets(char *);
+extern void cputs(const char *);
+# 85 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\include\\c90\\stdio.h" 2 3
+
+
+
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
+
+
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+# 180 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\include\\c90\\stdio.h" 3
+#pragma printf_check(vprintf) const
+#pragma printf_check(vsprintf) const
+
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+# 3 "//adir.hull.ac.uk/home/578/578004/Downloads/SampleLCD.X/lcd.c" 2
+
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\include\\c90\\string.h" 1 3
+# 14 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\include\\c90\\string.h" 3
+extern void * memcpy(void *, const void *, size_t);
+extern void * memmove(void *, const void *, size_t);
+extern void * memset(void *, int, size_t);
+# 36 "C:\\Program Files\\Microchip\\xc8\\v2.20\\pic\\include\\c90\\string.h" 3
+extern char * strcat(char *, const char *);
+extern char * strcpy(char *, const char *);
+extern char * strncat(char *, const char *, size_t);
+extern char * strncpy(char *, const char *, size_t);
+extern char * strdup(const char *);
+extern char * strtok(char *, const char *);
+
+
+extern int memcmp(const void *, const void *, size_t);
+extern int strcmp(const char *, const char *);
+extern int stricmp(const char *, const char *);
+extern int strncmp(const char *, const char *, size_t);
+extern int strnicmp(const char *, const char *, size_t);
+extern void * memchr(const void *, int, size_t);
+extern size_t strcspn(const char *, const char *);
+extern char * strpbrk(const char *, const char *);
+extern size_t strspn(const char *, const char *);
+extern char * strstr(const char *, const char *);
+extern char * stristr(const char *, const char *);
+extern char * strerror(int);
+extern size_t strlen(const char *);
+extern char * strchr(const char *, int);
+extern char * strichr(const char *, int);
+extern char * strrchr(const char *, int);
+extern char * strrichr(const char *, int);
+# 4 "//adir.hull.ac.uk/home/578/578004/Downloads/SampleLCD.X/lcd.c" 2
+
+
+void lcd_init() {
+    writecmd(0x0e);
+    writecmd(0x1);
+    writecmd(0x38);
+
+
+
+}
+
+void lcd_soft_init() {
+    writecmd(0x0e);
+    writecmd(0x38);
+    setcursor(0,0);
+}
+
+void writechar(char x) {
+    RA1 = 1;
+    RA2 = 0;
+    PORTD = x;
+    RA3 = 0;
+    delay();
+    RA3 = 1;
+
+}
+
+void writecmd(char x) {
+    RA1 = 0;
+    RA2 = 0;
+    PORTD = x;
+    RA3 = 0;
+    delay();
+    RA3 = 1;
+}
+
+void writestr(char *x) {
+    int length = strlen(x);
+
+    for (int i = 0; i < length; i++) {
+        writechar(x[i]);
     }
 }
 
-void set_pin(char val) {
-    if (val) {
-        PORTA = PORTA | 0x01;
-    }
-    else {
-        PORTA = ~(~PORTA | 0x01);
-    }
-}
-
-char get_pin() {
-    char result = PORTA | 0x01;
-
-    if (result && PORTA) {
-        return 1;
-    }
-    else {
-        return 0;
+void setcursor(int x, int y) {
+    if (y < 0 || y > 1) {
+        return;
     }
 
-}
+    if (x < 0 || x > 15) return;
 
-int therm_init() {
+    int baseNumber = y == 0 ? 0x80 : 0xC0;
 
-    ADCON1 = 0x07;
-    set_pin_io(0);
+    writecmd(baseNumber + x);
 
-    set_pin(0);
-    therm_delay(2, 70);
-    set_pin_io(1);
-    therm_delay(2, 8);
-
-    char alive;
-    alive = get_pin();
-
-
-    therm_delay(2, 60);
-
-    if (alive == 0) {
-        return 1;
-    }
-    else {
-        return 0;
-    }
-}
-
-void skip_ROM() {
-
-    write_byte(0xCC);
-
-}
-
-void write_bit(char wBit) {
-
-    if (wBit) {
-        set_pin_io(0);
-        set_pin(0);
-
-        therm_delay(2, 8);
-        set_pin_io(1);
-    }
-    else {
-        set_pin_io(0);
-        set_pin(0);
-
-        __nop();
-        __nop();
-        __nop();
-        set_pin_io(1);
-
-
-        therm_delay(2, 8);
-    }
-
-}
-
-void write_byte(char byte) {
-
-    char mask;
-
-    for (mask = 0x80; mask != 0; mask >>= 1) {
-
-        if (byte & mask) {
-            write_bit(1);
-        }
-        else {
-            write_bit(0);
-        }
-
-    }
-
-}
-
-void therm_delay(char x, char y) {
-
-    char z;
-    do {
-        z = y;
-        do {;} while (--z);
-    } while (--x);
 }

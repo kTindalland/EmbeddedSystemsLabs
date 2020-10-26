@@ -36,7 +36,7 @@ int therm_init() {
     set_pin_io(0); // Set pin low for output.
     
     set_pin(0);
-    therm_delay(2, 70) // 503us
+    therm_delay(2, 70); // 503us
     set_pin_io(1);
     therm_delay(2, 8); // 70us
    
@@ -63,20 +63,20 @@ void skip_ROM() {
 void write_bit(char wBit) {
     
     if (wBit) { // Write 1
-        set_bit_io(0); // Set to write
-        set_bit(0); // Set Low
+        set_pin_io(0); // Set to write
+        set_pin(0); // Set Low
         // Wait
         therm_delay(2, 8); // 70us
-        set_bit_io(1); // Release pin
+        set_pin_io(1); // Release pin
     }
     else { // Write 0
-        set_bit_io(0); // Set to write
-        set_bit(0); // Set Low
+        set_pin_io(0); // Set to write
+        set_pin(0); // Set Low
         // Wait 3us
         NOP();
         NOP();
         NOP();
-        set_bit_io(1); // Release pin
+        set_pin_io(1); // Release pin
         
         // Allow chip to sample
         therm_delay(2, 8); // 70us

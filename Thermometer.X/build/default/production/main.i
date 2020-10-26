@@ -1,4 +1,4 @@
-# 1 "thermometer.c"
+# 1 "main.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,9 +6,14 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "thermometer.c" 2
-# 1 "./thermometer.h" 1
-# 34 "./thermometer.h"
+# 1 "main.c" 2
+
+
+
+
+
+
+
 # 1 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
 # 18 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -1718,7 +1723,9 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 34 "./thermometer.h" 2
+# 8 "main.c" 2
+
+# 1 "./thermometer.h" 1
 # 73 "./thermometer.h"
     void set_pin_io(char val);
     void set_pin(char val);
@@ -1728,115 +1735,27 @@ extern __bank0 __bit __timeout;
     void write_bit(char wBit);
     void write_byte(char byte);
     void therm_delay(char x, char y);
-# 1 "thermometer.c" 2
+# 9 "main.c" 2
+
+# 1 "./delay.h" 1
 
 
-void set_pin_io(char val) {
-    if (val) {
-        TRISA = TRISA | 0x01;
-    }
-    else {
-        TRISA = ~(~TRISA | 0x01);
-    }
-}
 
-void set_pin(char val) {
-    if (val) {
-        PORTA = PORTA | 0x01;
-    }
-    else {
-        PORTA = ~(~PORTA | 0x01);
-    }
-}
-
-char get_pin() {
-    char result = PORTA | 0x01;
-
-    if (result && PORTA) {
-        return 1;
-    }
-    else {
-        return 0;
-    }
-
-}
-
-int therm_init() {
-
-    ADCON1 = 0x07;
-    set_pin_io(0);
-
-    set_pin(0);
-    therm_delay(2, 70);
-    set_pin_io(1);
-    therm_delay(2, 8);
-
-    char alive;
-    alive = get_pin();
+void delay();
+void delayBy(int amount);
+# 10 "main.c" 2
 
 
-    therm_delay(2, 60);
-
-    if (alive == 0) {
-        return 1;
-    }
-    else {
-        return 0;
-    }
-}
-
-void skip_ROM() {
-
-    write_byte(0xCC);
-
-}
-
-void write_bit(char wBit) {
-
-    if (wBit) {
-        set_pin_io(0);
-        set_pin(0);
-
-        therm_delay(2, 8);
-        set_pin_io(1);
-    }
-    else {
-        set_pin_io(0);
-        set_pin(0);
-
-        __nop();
-        __nop();
-        __nop();
-        set_pin_io(1);
 
 
-        therm_delay(2, 8);
-    }
+#pragma config FOSC = HS
+#pragma config WDTE = OFF
+#pragma config PWRTE = ON
+#pragma config BOREN = OFF
+#pragma config LVP = OFF
 
-}
 
-void write_byte(char byte) {
 
-    char mask;
-
-    for (mask = 0x80; mask != 0; mask >>= 1) {
-
-        if (byte & mask) {
-            write_bit(1);
-        }
-        else {
-            write_bit(0);
-        }
-
-    }
-
-}
-
-void therm_delay(char x, char y) {
-
-    char z;
-    do {
-        z = y;
-        do {;} while (--z);
-    } while (--x);
+void main(void) {
+    return;
 }
