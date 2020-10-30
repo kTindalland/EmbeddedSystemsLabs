@@ -76,8 +76,11 @@ extern "C" {
     int therm_init();
     void skip_ROM();
     void write_bit(char wBit);
+    char read_bit();
+    char read_byte();
     void write_byte(char byte);
     void therm_delay(char x, char y);
+    double therm_convert_number(int number);
     
 
 #ifdef	__cplusplus
