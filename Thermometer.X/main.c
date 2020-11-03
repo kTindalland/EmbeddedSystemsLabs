@@ -54,18 +54,19 @@ void main(void) {
         lcd_soft_init();
         
         if (result & 0x280) {
-            char snum[10];
+            char snum[10] = "Hello world";
             
-            sprintf(snum, "%lf", therm_convert_number(result));
+            //sprintf(snum, "%lf", therm_convert_number(result));
             
-            writestr(snum);
+            writestr("Hello world");
         }
         else {
-            char snum[5];
+            char snum[5] = "Hello";
             
-            sprintf(snum, "%lf", therm_convert_number(result));
+            //sprintf(snum, "%lf", therm_convert_number(result));
             
-            writestr(snum);
+            
+            writestr("Hello");
         }
         
         

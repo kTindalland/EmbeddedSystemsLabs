@@ -1,5 +1,5 @@
 #include "thermometer.h"
-#include <math.h>
+#include "maths-utils.h"
 
 void set_pin_io(char val) {
     if (val) { // High
