@@ -16,17 +16,17 @@ void main(void) {
     
     clearWP();
     
-    uch secsByte = convertSecs(0);
+    uch hoursByte = convertHours(11, 0);
     
-    writeByte(RTC_SEC, secsByte);
+    writeByte(RTC_HOURS, hoursByte);
     
     for (;;) {
         
-        uch secsFromClock = readByte(RTC_SEC);
+        uch hoursFromClock = readByte(RTC_HOURS);
         
-        int seconds = convertReadSecs(secsFromClock);
+        int hours = convertReadHours(hoursFromClock);
         
-        if (seconds == 2) {
+        if (hours == 2) {
             PORTC = 0xFF;
         }
         else if (seconds == 8) {

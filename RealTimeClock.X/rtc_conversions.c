@@ -30,11 +30,24 @@ uch convertMins(int mins) {
     return result;
 }
 
-uch convertHours(int hours, int is24Hour) {
-	if (is24Hour && (hours < 0 || hours >= 24)) return RTC_ERROR;
-    if (!is24Hour && (hours < 1 || hours >= 13)) return RTC_ERROR;
+uch convertHours(int hours, int AMPM) {
+	if (AMPM == NULL && (hours < 0 || hours >= 24)) return RTC_ERROR;
+    if (AMPM != NULL && (hours < 1 || hours >= 13)) return RTC_ERROR;
     
-    return 0;
+    uch ones = hours % 10;
+    uch tens = (hours - ones) / 10;
+    
+    uch result = 0;
+    
+    if (AMPM != NULL){ // 12Hr Mode
+        result |= 0x80;// 12Hr Mode
+        if (AMPM) result |= 0x40; //PM    
+    }
+    
+    result |= ones;
+    result |= (tens <<4);
+    
+    return result;
 }
 
 uch convertDate(int date, int month, int year) {
@@ -130,7 +143,22 @@ int convertReadMins(uch mins) {
 }
 
 int convertReadHours(uch hours, int* AMPM) {
-	return 0;
+    int result = 0;
+    
+    uch hour12 = hours & 0x80;
+    if (hour12) *AMPM = hours & 0x20;
+    else *AMPM = NULL;
+    
+    uch ones = hours & 0x0f;
+    uch tens;
+    
+    if (hour12) tens = (hours & 0x10);
+    else tens = (hours & 0x30);
+    
+    result += ones;
+    result += tens;
+
+	return result;
 }
 
 int convertReadDate(uch date) {
