@@ -123,7 +123,7 @@ uch convertYear(int year) {
 int convertReadSecs(uch secs) {
 	int result = 0;
     uch ones = secs & 0x0F;
-    uch tens = (secs & 0x70) * 10;
+    uch tens = ((secs & 0x70) >> 4 ) * 10;
     
     result += ones;
     result += tens;
@@ -134,7 +134,7 @@ int convertReadSecs(uch secs) {
 int convertReadMins(uch mins) {
 	int result = 0;
     uch ones = mins & 0x0F;
-    uch tens = (mins & 0x70) * 10;
+    uch tens = ((mins & 0x70) >> 4 ) * 10;
     
     result += ones;
     result += tens;
@@ -153,7 +153,7 @@ int convertReadHours(uch hours, int* AMPM) {
     uch tens;
     
     if (hour12) tens = (hours & 0x10);
-    else tens = (hours & 0x30);
+    else tens = (hours & 0x30) >> 4;
     
     result += ones;
     result += tens;
@@ -164,7 +164,7 @@ int convertReadHours(uch hours, int* AMPM) {
 int convertReadDate(uch date) {
 	int result = 0;
     uch ones = date & 0x0F;
-    uch tens = (date & 0x30) * 10;
+    uch tens = ((date & 0x30) >> 4 ) * 10;
     
     result += ones;
     result += tens;
@@ -175,7 +175,7 @@ int convertReadDate(uch date) {
 int convertReadMonth(uch month) {
 	int result = 0;
     uch ones = month & 0x0F;
-    uch tens = (month & 0x10) * 10;
+    uch tens = ((month & 0x10) >> 4 ) * 10;
     
     result += ones;
     result += tens;
@@ -194,7 +194,7 @@ int convertReadDay(uch day) {
 int convertReadYear(uch year) {
 	int result = 0;
     uch ones = year & 0x0F;
-    uch tens = (year & 0xF0) * 10;
+    uch tens = ((year & 0xF0) >> 4 ) * 10;
     
     result += ones;
     result += tens;
