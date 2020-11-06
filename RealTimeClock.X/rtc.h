@@ -16,6 +16,7 @@ extern "C" {
 
     #define RTC_READ 0x80
     #define RTC_WRITE 0x00
+#define NULL -1
 
     #define RTC_SEC = 0x01
     #define RTC_MINS = 0x41
@@ -29,6 +30,29 @@ extern "C" {
     #define RTC_CLK_BURST = 0x7D
 
     #define RTC_ERROR 0xFF
+    
+    typedef struct rtcTime {
+        int secs;
+        int mins;
+        int hours;       
+        int AMPM;
+    } rtcTime;
+    
+    typedef struct rtcDate {
+        int date;
+        int month;
+        int year;
+        int day;        
+    } rtcDate;
+    
+    typedef struct rtcDateTime {
+        rtcTime time;
+        rtcDate date;        
+    } rtcDateTime;
+    
+    
+    
+    
     
     
     void writeByte(uch addr, uch data);
@@ -51,9 +75,20 @@ extern "C" {
     int convertReadYear(uch year);
     
     uch readByte(uch addr);
+
+
+    void setDate(rtcDate date);
+    void setTime(rtcTime time);
+    void setDateTime(rtcDateTime datetime);
+    void set24HourMode(int mode);
     
-
-
+    void getDate(rtcDate* date);
+    void getTime24(rtcTime* time);
+    void getTime12(rtcTime* time);
+    
+    void getDateTime(rtcDate* date, rtcTime* time);
+       
+    
 #ifdef	__cplusplus
 }
 #endif
