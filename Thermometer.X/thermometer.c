@@ -1,5 +1,6 @@
 #include "thermometer.h"
 #include "maths-utils.h"
+#include <pic.h>
 
 void set_pin_io(char val) {
     if (val) { // High
@@ -19,18 +20,6 @@ void set_pin(char val) {
     }
 }
 
-char get_pin() {
-    char result = PORTA | 0x01;
-        
-    if (result && PORTA) { // Bit is high
-        return 1;
-    }
-    else { // Bit is low
-        return 0;
-    }
-    
-}
-
 int therm_init() {
     
     ADCON1 = 0x07; // Set Port A to general I/O
@@ -44,7 +33,7 @@ int therm_init() {
     therm_delay(1, 10); // 70us - SIM
    
     char alive;
-    alive = get_pin();
+    alive = RA0;
     
     // Wait till the end of the time slot
     //therm_delay(2, 60);
@@ -66,31 +55,24 @@ void skip_ROM() {
 
 void write_bit(char wBit) {
     
+    set_pin_io(0); // Set to write
+    set_pin(0); // Set Low
+    NOP();
+    NOP();
+    
     if (wBit) { // Write 1
-        set_pin_io(0); // Set to write
-        set_pin(0); // Set Low
-        // Wait
-        //therm_delay(2, 8); // 70us
-        therm_delay(1, 10); // 70us - SIM
         set_pin_io(1); // Release pin
-    }
-    else { // Write 0
-        set_pin_io(0); // Set to write
-        set_pin(0); // Set Low
-        // Wait 3us
-        NOP();
-        NOP();
-        NOP();
-        set_pin_io(1); // Release pin
-        
-        // Allow chip to sample
-        //therm_delay(2, 8); // 70us
-        therm_delay(1, 10); // 70us - SIM
     }
     
+    // Allow chip to sample
+    //therm_delay(2, 7); // 63us
+    therm_delay(2, 3); // 63us - SIM
+    
+    set_pin_io(1); // Release pin
+    NOP();
 }
 
-void write_byte(char byte) {
+/*void write_byte(char byte) {
     
     char mask;
     
@@ -105,6 +87,31 @@ void write_byte(char byte) {
         
     }
     
+}*/
+
+void write_byte(unsigned char val)
+{
+ unsigned char i;
+ unsigned char temp;
+ for(i=8;i>0;i--)
+ {
+   temp=val&0x01;                             //shift the lowest bit                   
+   set_pin_io(0);
+   set_pin(0);
+ //  NOP();                                                                              
+ //  NOP();                                                                              
+ //  NOP();                                                                              
+  NOP();                                                                              
+  NOP();                                     //pull high to low,produce write time    
+//RB2=0;
+   if(temp==1)  set_pin_io(1);                    //if write 1,pull high                   
+   therm_delay(2,3);                                //delay 63us                             
+   set_pin_io(1);                                                                          
+  NOP();                                                                              
+ //  NOP();                                                                              
+   val=val>>1;                                //right shift a bit               
+//RB2=1;       
+  }
 }
 
 char read_bit() {
@@ -114,20 +121,51 @@ char read_bit() {
     NOP();
     NOP(); // The rest of the 3us
     
+    int pin_result = RA0;
     
-    return get_pin();
+    //therm_delay(2, 7); // 63us
+    therm_delay(2, 3); // 63us - SIM
+    
+    return pin_result;
 }
 
-char read_byte() {
-    char answer = read_bit();
+unsigned char read_byte(void)
+{
+ unsigned char i;
+ unsigned char value=0;                                 //read temperature         
+ static int j;
+ for(i=8;i>0;i--)
+ {
+   value>>=1; 
+   set_pin_io(0);
+   set_pin(0);
+//RB2=0;
+  NOP();                               //6us              
+   set_pin_io(1);                                // pull high  
+//RB2=1;    
+                                                       
+   NOP();                                   //4us               
+   j=RA0;                                                        
+   if(j) value|=0x80;                       
+//RB2=0;                    
+   therm_delay(2,3);                              //63us     
+//RB2=1;         
+  }
+  return(value);
+}
+
+/*char read_byte() {
     
-    for (int i = 1; i < 8; i++) {
-        answer <<= i;
-        answer |= read_bit();
+    int result = 0;
+    
+    for (int i = 0; i < 8; i++) {
+        result >>= 1;
+        
+        if (read_bit()) result |= 0x80;
     }
     
-    return answer;
-}
+    return result;
+}*/
 
 void therm_delay(char x, char y) {
     // t = 7 + (3 * (y - 1) + 7) * (x - 1)
@@ -147,7 +185,7 @@ double therm_convert_number(int number) {
         
         int mask = 1 << index;
         
-        if (number & mask != 0) {
+        if ((number & mask) != 0) {
             result += pow(2, i);
         }
     }
@@ -157,7 +195,7 @@ double therm_convert_number(int number) {
         result *= -1;
     }
     
-    result = 15.0;
+    //return 15.0;
     return result;
     
 }

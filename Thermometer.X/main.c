@@ -9,7 +9,7 @@
 #include "thermometer.h"
 #include "delay.h"
 #include "lcd.h"
-#include <stdio.h>
+#include <stdlib.h>
 
 
 //begin config
@@ -30,14 +30,14 @@ void main(void) {
     
     
     for (;;) {
-        
+        char bytes[9];
         
         therm_init();
-        skip_ROM();
         
+        skip_ROM();
         write_byte(0xBE);
         
-        char bytes[9];
+        
         
         for (int i = 0; i < 9; i++) {
             bytes[i] = read_byte();
@@ -45,29 +45,25 @@ void main(void) {
         
         // Check if it's 40 for now
         
-        int result = 0;
-        result |= bytes[1] << 8;
+        int result = bytes[1];
+        result <<= 8;
         result |= bytes[0];
         
+        TRISB = 0x00;
+        PORTB = bytes[0];
         
         init();
         lcd_soft_init();
         
-        if (result & 0x280) {
-            char snum[10] = "Hello world";
+        double converted_result = therm_convert_number(result);
+        int* status;
+        
+        char* snum = ftoa(converted_result, status);
             
-            //sprintf(snum, "%lf", therm_convert_number(result));
-            
-            writestr("Hello world");
-        }
-        else {
-            char snum[5] = "Hello";
-            
-            //sprintf(snum, "%lf", therm_convert_number(result));
+        
             
             
-            writestr("Hello");
-        }
+        writestr(snum);
         
         
         

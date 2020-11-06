@@ -72,13 +72,12 @@ extern "C" {
     
     void set_pin_io(char val);
     void set_pin(char val);
-    char get_pin();
     int therm_init();
     void skip_ROM();
     void write_bit(char wBit);
     char read_bit();
-    char read_byte();
-    void write_byte(char byte);
+    unsigned char read_byte();
+    void write_byte(unsigned char byte);
     void therm_delay(char x, char y);
     double therm_convert_number(int number);
     
