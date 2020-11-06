@@ -148,27 +148,27 @@ void setDateTime(rtcDateTime datetime) {
 
 void getDate(rtcDate* date) {
     uch dateByte = readByte(RTC_DATE);
-    *date->date = convertReadDate(dateByte);
+    date->date = convertReadDate(dateByte);
     
     uch monthByte = readByte(RTC_MONTH);
-    *date->month = convertReadMonth(monthByte);
+    date->month = convertReadMonth(monthByte);
     
     uch yearByte = readByte(RTC_YEAR);
-    *date->year = convertReadYear(yearByte);
+    date->year = convertReadYear(yearByte);
     
     uch dayByte = readByte(RTC_DAY);
-    *date->day = convertReadDay(dayByte);
+    date->day = convertReadDay(dayByte);
 }
 
 void getTime(rtcTime* time) {
     uch secsByte = readByte(RTC_SEC);
-    *time->secs = convertReadSecs(secsByte);
+    time->secs = convertReadSecs(secsByte);
     
     uch minsByte = readByte(RTC_MINS);
-    *time->mins = convertReadMins(minsByte);
+    time->mins = convertReadMins(minsByte);
     
     uch hoursByte = readByte(RTC_HOURS);
-    *time->hours = convertReadHours(hoursByte, &time->AMPM);
+    time->hours = convertReadHours(hoursByte, &time->AMPM);
 }
 
 void getTime24(rtcTime* time) {
@@ -193,20 +193,20 @@ void getTime12(rtcTime* time) {
 
 void convertHourFormat(rtcTime* time) {
     // If 24 to 12
-    if (*time->AMPM == NULL) {
-        *time->AMPM = AM;
+    if (time->AMPM == NULL) {
+        time->AMPM = AM;
         
-        if (*time->hours > 12) {
-            *time->hours -= 12;
-            *time->AMPM = PM;
+        if (time->hours > 12) {
+            time->hours -= 12;
+            time->AMPM = PM;
         }
     }
     else { // If 12 to 24
-        if (*time->AMPM == PM) {
-            *time->hours += 12;
+        if (time->AMPM == PM) {
+            time->hours += 12;
         }
         
-        if (*time->hours >= 24) *time->hours = 0;
+        if (time->hours >= 24) time->hours = 0;
     }
 }
 
