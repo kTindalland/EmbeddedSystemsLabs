@@ -36,7 +36,7 @@ void main(void) {
             PORTC = 0x00;
         }
         
-        for (int i = 0; i < 500; i++);
+        for (int i = 0; i < 200; i++);
         
     }
     

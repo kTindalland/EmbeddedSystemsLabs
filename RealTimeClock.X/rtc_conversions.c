@@ -19,7 +19,15 @@ uch convertSecs(int sec) {
 uch convertMins(int mins) {
 	if (mins < 0 || mins >= 60) return RTC_ERROR;
     
-    return 0;
+    uch result = 0;
+    
+    uch ones = mins % 10;
+    uch tens = (mins - ones) / 10;
+    
+    result |= ones;
+    result |= (tens << 4);
+    
+    return result;
 }
 
 uch convertHours(int hours, int is24Hour) {
@@ -47,25 +55,52 @@ uch convertDate(int date, int month, int year) {
         else if (date < 1 || date >= 28) return RTC_ERROR;
     }
     
-    return 0;
+    uch result = 0;
+    
+    uch ones = date % 10;
+    uch tens = (date - ones) / 10;
+    
+    result |= ones;
+    result |= (tens << 4);
+    
+    return result;
 }
 
 uch convertMonth(int month) {
 	if (month < 1 || month >= 13) return RTC_ERROR;
     
-    return 0;
+    uch result = 0;
+    
+    uch ones = month % 10;
+    uch tens = (month - ones) / 10;
+    
+    result |= ones;
+    result |= (tens << 4);
+    
+    return result;
 }
 
 uch convertDay(int day) {
 	if (day < 1 || day >= 8) return RTC_ERROR;
     
-    return 0;
+    uch result = 0;
+    result |= day;
+    
+    return result;
 }
 
 uch convertYear(int year) {
 	if (year < 0 || year >= 100) return RTC_ERROR;
     
-    return 0;
+    uch result = 0;
+    
+    uch ones = year % 10;
+    uch tens = (year - ones) / 10;
+    
+    result |= ones;
+    result |= (tens << 4);
+    
+    return result;
 }
 
 
@@ -84,26 +119,58 @@ int convertReadSecs(uch secs) {
 }
 
 int convertReadMins(uch mins) {
-	return 0;
+	int result = 0;
+    uch ones = mins & 0x0F;
+    uch tens = (mins & 0x70) * 10;
+    
+    result += ones;
+    result += tens;
+    
+    return result;
 }
 
-int convertReadHours(uch hours) {
+int convertReadHours(uch hours, int* AMPM) {
 	return 0;
 }
 
 int convertReadDate(uch date) {
-	return 0;
+	int result = 0;
+    uch ones = date & 0x0F;
+    uch tens = (date & 0x30) * 10;
+    
+    result += ones;
+    result += tens;
+    
+    return result;
 }
 
 int convertReadMonth(uch month) {
-	return 0;
+	int result = 0;
+    uch ones = month & 0x0F;
+    uch tens = (month & 0x10) * 10;
+    
+    result += ones;
+    result += tens;
+    
+    return result;
 }
 
 int convertReadDay(uch day) {
-	return 0;
+	int result = 0;
+    
+    result = day & 0x07;
+    
+    return result;
 }
 
 int convertReadYear(uch year) {
-	return 0;
+	int result = 0;
+    uch ones = year & 0x0F;
+    uch tens = (year & 0xF0) * 10;
+    
+    result += ones;
+    result += tens;
+    
+    return result;
 }
 

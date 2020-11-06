@@ -19,6 +19,8 @@ extern "C" {
     #define RTC_READ 0x80
     #define RTC_WRITE 0x00
     #define NULL -1
+    #define AM 0
+    #define PM 1
 
     #define RTC_SEC 0x01
     #define RTC_MINS 0x41
@@ -62,7 +64,6 @@ extern "C" {
     void clearWP();
     
     void writeByte(uch addr, uch data);
-    void writeBurst(rtcDateTime datetime);
     
     uch convertSecs(int sec);
     uch convertMins(int mins);
@@ -74,7 +75,7 @@ extern "C" {
     
     int convertReadSecs(uch secs);
     int convertReadMins(uch mins);
-    int convertReadHours(uch hours);
+    int convertReadHours(uch hours, int* AMPM);
     int convertReadDate(uch date);
     int convertReadMonth(uch month);
     int convertReadDay(uch day);
@@ -92,11 +93,12 @@ extern "C" {
     void set24HourMode(int mode);
     
     void getDate(rtcDate* date);
+    void getTime(rtcTime* time);
     void getTime24(rtcTime* time);
     void getTime12(rtcTime* time);
     
-    void getDateTime(rtcDate* date, rtcTime* time);
-       
+    void getDateTime(rtcDateTime* datetime);
+    void convertHourFormat(rtcTime* time);
     
 #ifdef	__cplusplus
 }
