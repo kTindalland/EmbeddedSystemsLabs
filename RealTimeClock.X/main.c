@@ -10,11 +10,8 @@
 #include "rtc.h"
 
 void main(void) {
-    TRISC = 0x00;
-    TRISB = 0x00;
-    PORTB = 0xFF;
     
-    clearWP();
+    rtcTime time;
     
     uch hoursByte = convertHours(11, 0);
     
@@ -24,16 +21,13 @@ void main(void) {
         
         uch hoursFromClock = readByte(RTC_HOURS);
         
-        int hours = convertReadHours(hoursFromClock);
+        int hours = convertReadHours(hoursFromClock, &time.AMPM);
         
-        if (hours == 2) {
-            PORTC = 0xFF;
-        }
-        else if (seconds == 8) {
+        if (hours == 11) {
             PORTC = 0xFF;
         }
         else {
-            PORTC = 0x00;
+            PORTC = 0xff;
         }
         
         for (int i = 0; i < 200; i++);

@@ -1,6 +1,14 @@
 #include "rtc.h"
 #include <xc.h>
 
+void rtcInit(){
+    TRISC = 0x00;
+    TRISB = 0x00;
+    PORTB = 0xFF;
+    
+    clearWP();
+}
+
 void clearWP() {
     
     writeByte(RTC_CTRL, 0x00);
@@ -175,7 +183,7 @@ void getTime24(rtcTime* time) {
     
     getTime(time);
     
-    if (*time->AMPM != NULL) {
+    if (time->AMPM != NULL) {
         convertHourFormat(time);
     }
     
@@ -185,7 +193,7 @@ void getTime12(rtcTime* time) {
     
     getTime(time);
     
-    if (*time->AMPM == NULL) {
+    if (time->AMPM == NULL) {
         convertHourFormat(time);
     }
     
