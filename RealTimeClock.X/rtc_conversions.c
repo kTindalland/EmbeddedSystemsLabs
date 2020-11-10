@@ -41,11 +41,11 @@ uch convertHours(int hours, int AMPM) {
     
     if (AMPM != NULL){ // 12Hr Mode
         result |= 0x80;// 12Hr Mode
-        if (AMPM) result |= 0x40; //PM    
+        if (AMPM) { result |= 0x20; }//PM    
     }
     
     result |= ones;
-    result |= (tens <<4);
+    result |= (tens << 4);    
     
     return result;
 }
@@ -146,17 +146,17 @@ int convertReadHours(uch hours, int* AMPM) {
     int result = 0;
     
     uch hour12 = hours & 0x80;
-    if (hour12) *AMPM = hours & 0x20;
-    else *AMPM = NULL;
+    if (hour12) { *AMPM = (hours & 0x20) >> 5; }
+    else { *AMPM = NULL; }
     
     uch ones = hours & 0x0f;
     uch tens;
     
-    if (hour12) tens = (hours & 0x10);
-    else tens = (hours & 0x30) >> 4;
+    if (hour12) { tens = (hours & 0x10) >> 4; }
+    else { tens = (hours & 0x30) >> 4; }
     
     result += ones;
-    result += tens;
+    result += (tens * 10);
 
 	return result;
 }

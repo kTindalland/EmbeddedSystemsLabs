@@ -11,9 +11,15 @@
 
 void main(void) {
     
-    rtcTime time;
+    TRISC = 0x00;
+    clearWP();    
     
-    uch hoursByte = convertHours(11, 0);
+    rtcTime time;
+    time.AMPM = AM;
+    
+    uch hoursByte = convertHours(21, AM);
+    
+    if (hoursByte == RTC_ERROR) exit(1);
     
     writeByte(RTC_HOURS, hoursByte);
     
@@ -23,11 +29,11 @@ void main(void) {
         
         int hours = convertReadHours(hoursFromClock, &time.AMPM);
         
-        if (hours == 11) {
+        if (hours == 21 && time.AMPM == NULL) {
             PORTC = 0xFF;
         }
         else {
-            PORTC = 0xff;
+            PORTC = hours;
         }
         
         for (int i = 0; i < 200; i++);

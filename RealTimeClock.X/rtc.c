@@ -2,11 +2,8 @@
 #include <xc.h>
 
 void rtcInit(){
-    TRISC = 0x00;
     TRISB = 0x00;
     PORTB = 0xFF;
-    
-    clearWP();
 }
 
 void clearWP() {
@@ -38,6 +35,8 @@ void stopClock() {
 }
 
 uch readByte(uch addr) {
+    rtcInit();
+    
     uch readAddr = addr | RTC_READ;
     uch result = 0;
     
@@ -79,10 +78,16 @@ uch readByte(uch addr) {
     
     RST = 0;
     
+    // Flip the result
+    result = reverseBits(result);
+    
+    
     return result;    
 }
 
 void writeByte(uch addr, uch data) {
+    rtcInit();
+    
     uch writeAddr = addr | RTC_WRITE;
     
     SCLK = 0;
@@ -223,3 +228,16 @@ void getDateTime(rtcDateTime* datetime) {
     getDate(&datetime->date);
 }
 
+uch reverseBits(uch number) {
+    uch reversedNumber = 0;
+    
+    while (number > 0) {
+        reversedNumber <<= 1;
+        if (number & 1 == 1) {
+            reversedNumber ^= 1;
+        } 
+        number >>= 1;
+    }
+    
+    return reversedNumber;
+}
