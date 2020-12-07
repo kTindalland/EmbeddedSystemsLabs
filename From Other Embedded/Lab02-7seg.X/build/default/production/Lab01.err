@@ -1,0 +1,13 @@
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB02-7SEG.X\LAB01.ASM 7 : Found label after column 1. (outer_delay)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB02-7SEG.X\LAB01.ASM 8 : Found label after column 1. (inner_delay)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB02-7SEG.X\LAB01.ASM 9 : Found label after column 1. (main)
+Message[302] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB02-7SEG.X\LAB01.ASM 11 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB02-7SEG.X\LAB01.ASM 13 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB02-7SEG.X\LAB01.ASM 15 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB02-7SEG.X\LAB01.ASM 22 : Found label after column 1. (loop)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB02-7SEG.X\LAB01.ASM 53 : Found label after column 1. (make_b)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB02-7SEG.X\LAB01.ASM 66 : Found label after column 1. (make_o)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB02-7SEG.X\LAB01.ASM 79 : Found label after column 1. (make_s)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB02-7SEG.X\LAB01.ASM 93 : Found label after column 1. (delay)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB02-7SEG.X\LAB01.ASM 96 : Found label after column 1. (outer_loop)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB02-7SEG.X\LAB01.ASM 99 : Found label after column 1. (inner_loop)

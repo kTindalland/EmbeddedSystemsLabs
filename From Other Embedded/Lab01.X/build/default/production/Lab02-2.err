@@ -1,0 +1,20 @@
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 6 : Found label after column 1. (outer_delay)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 7 : Found label after column 1. (inner_delay)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 8 : Found label after column 1. (last_pin)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 9 : Found label after column 1. (for_loop)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 10 : Found label after column 1. (memdata)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 13 : Found label after column 1. (main)
+Message[305] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 15 : Using default destination of 1 (file).
+Message[302] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 18 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 19 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 20 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 23 : Found label after column 1. (loop)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 31 : Found label after column 1. (delay)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 34 : Found label after column 1. (outer_loop)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 37 : Found label after column 1. (inner_loop)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 45 : Found label after column 1. (do_C)
+Message[305] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 48 : Using default destination of 1 (file).
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 51 : Found label after column 1. (inner_while)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 63 : Found label after column 1. (do_B)
+Message[305] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 66 : Using default destination of 1 (file).
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02-2.ASM 69 : Found label after column 1. (inner_while_B)

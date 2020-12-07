@@ -1,0 +1,54 @@
+[p GLOBOPT AUTOSTATIC IEEE_DBL IEEE_FLT PIC14 PICREGULAR PICMID ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F877A ]
+[d frameptr 0 ]
+"3 B:\University\Embedded\MPLAB Projects\Cproj.X\delay.c
+[v _delay delay `(v  1 e 1 0 ]
+"10 H:\Program Files\Microchip\xc8\v2.30\pic\sources\c90\common\sprcadd.c
+[v ___fladd __fladd `(d  1 e 4 0 ]
+"4 H:\Program Files\Microchip\xc8\v2.30\pic\sources\c90\common\Umul8_16.c
+[v __Umul8_16 _Umul8_16 `(ui  1 e 2 0 ]
+"6 H:\Program Files\Microchip\xc8\v2.30\pic\sources\c90\pic\__eeprom.c
+[v ___eecpymem __eecpymem `(v  1 e 1 0 ]
+"39
+[v ___memcpyee __memcpyee `(v  1 e 1 0 ]
+"17 B:\University\Embedded\MPLAB Projects\Cproj.X\main.c
+[v _main main `(v  1 e 1 0 ]
+"39
+[v _init init `(v  1 e 1 0 ]
+"166 H:/Program Files (x86)/Microchip/MPLABX/v5.35/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f877a.h
+[v _PORTA PORTA `VEuc  1 e 1 @5 ]
+"216
+[v _PORTB PORTB `VEuc  1 e 1 @6 ]
+"278
+[v _PORTC PORTC `VEuc  1 e 1 @7 ]
+"340
+[v _PORTD PORTD `VEuc  1 e 1 @8 ]
+"1325
+[v _TRISA TRISA `VEuc  1 e 1 @133 ]
+"1375
+[v _TRISB TRISB `VEuc  1 e 1 @134 ]
+"1437
+[v _TRISC TRISC `VEuc  1 e 1 @135 ]
+"1499
+[v _TRISD TRISD `VEuc  1 e 1 @136 ]
+"2229
+[v _ADCON1 ADCON1 `VEuc  1 e 1 @159 ]
+"17 B:\University\Embedded\MPLAB Projects\Cproj.X\main.c
+[v _main main `(v  1 e 1 0 ]
+{
+"28
+} 0
+"39
+[v _init init `(v  1 e 1 0 ]
+{
+"50
+} 0
+"3 B:\University\Embedded\MPLAB Projects\Cproj.X\delay.c
+[v _delay delay `(v  1 e 1 0 ]
+{
+"4
+[v delay@i i `i  1 a 2 0 ]
+"6
+} 0

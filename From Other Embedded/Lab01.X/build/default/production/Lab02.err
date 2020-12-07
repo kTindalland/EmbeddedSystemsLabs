@@ -1,0 +1,11 @@
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02.ASM 6 : Found label after column 1. (outer_delay)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02.ASM 7 : Found label after column 1. (inner_delay)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02.ASM 10 : Found label after column 1. (main)
+Message[305] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02.ASM 12 : Using default destination of 1 (file).
+Message[302] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02.ASM 14 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02.ASM 17 : Found label after column 1. (loop)
+Message[305] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02.ASM 27 : Using default destination of 1 (file).
+Message[305] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02.ASM 29 : Using default destination of 1 (file).
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02.ASM 33 : Found label after column 1. (delay)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02.ASM 36 : Found label after column 1. (outer_loop)
+Warning[207] B:\UNIVERSITY\EMBEDDED\MPLAB PROJECTS\LAB01.X\LAB02.ASM 39 : Found label after column 1. (inner_loop)
