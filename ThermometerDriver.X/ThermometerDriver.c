@@ -99,8 +99,8 @@ void ThermGetTemp(unsigned char* msb, unsigned char* lsb) {
     ThermWriteByte(0xCC); // Ignore ROM
     ThermWriteByte(0xBE); // Read Temp
     
-    msb = ThermReadByte();
-    lsb = ThermReadByte();
+    *lsb = ThermReadByte();
+    *msb = ThermReadByte();
     
     DQ_HIGH();
     
